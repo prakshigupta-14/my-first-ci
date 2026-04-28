@@ -1,0 +1,47 @@
+pipeline:
+  name: my-first-ci-pipeline
+  identifier: myfirstcipipeline
+  projectIdentifier: practise_project
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: githubconnector
+        repoName: https://github.com/prakshigupta-14
+        build: <+input>
+  stages:
+    - stage:
+        name: Build_and_Test
+        identifier: Build_and_Test
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          buildIntelligence:
+            enabled: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Install Deps
+                  identifier: Install_Deps
+                  spec:
+                    shell: Sh
+                    command: npm install
+              - step:
+                  type: Run
+                  name: Run tests
+                  identifier: Run_tests
+                  spec:
+                    shell: Sh
+                    command: npm test
